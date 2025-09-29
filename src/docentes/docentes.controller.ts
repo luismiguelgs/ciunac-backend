@@ -3,9 +3,11 @@ import { DocentesService } from './docentes.service';
 import { CreateDocenteDto } from './dto/create-docente.dto';
 import { UpdateDocenteDto } from './dto/update-docente.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('docentes')
 export class DocentesController {
 	constructor(private readonly docentesService: DocentesService) {}

@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UsuariosService } from "src/usuarios/usuarios.service";
 import * as bcrypt from 'bcrypt';
-import { Provider, Usuario } from "src/usuarios/entities/usuario.entity";
+import { Provider, RolUsuario, Usuario } from "src/usuarios/entities/usuario.entity";
 
 @Injectable()
 export class AuthService {
@@ -11,12 +11,13 @@ export class AuthService {
         private jwtService: JwtService
     ) {}
     
-    async register(email: string, password: string) {
+    async register(email: string, password: string, rol?: RolUsuario) {
+        console.log('register', email, password, rol);
         const existe = await this.usuariosService.findByEmail(email);
         if (existe) {
             throw new UnauthorizedException('El usuario ya existe');
         }
-        const user = await this.usuariosService.createLocal(email, password, 'estudiante');
+        const user = await this.usuariosService.createLocal(email, password, rol);
         const tokens = this.generateTokens(user)
         return tokens
     }
@@ -47,7 +48,7 @@ export class AuthService {
                 profile.email,
                 profile.provider,
                 profile.providerId,
-                'estudiante',
+                RolUsuario.ESTUDIANTE,
             )
         }
         const tokens = await this.generateTokens(user);

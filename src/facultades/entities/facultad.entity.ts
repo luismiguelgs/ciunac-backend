@@ -9,6 +9,9 @@ export class Facultad {
 
     @Column()
     nombre: string;
+
+    @Column()
+    codigo: string;
     
     // Una facultad tiene muchas escuelas
     @OneToMany(() => Escuela, (escuela) => escuela.facultad)

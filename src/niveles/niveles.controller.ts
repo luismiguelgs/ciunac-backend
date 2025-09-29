@@ -3,9 +3,11 @@ import { NivelesService } from './niveles.service';
 import { CreateNivelDto } from './dto/create-nivel.dto';
 import { UpdateNivelDto } from './dto/update-nivel.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('niveles')
 export class NivelesController {
 	constructor(private readonly nivelesService: NivelesService) {}

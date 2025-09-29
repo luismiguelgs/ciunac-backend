@@ -3,9 +3,11 @@ import { NotasService } from './notas.service';
 import { CreateNotaDto } from './dto/create-nota.dto';
 import { UpdateNotaDto } from './dto/update-nota.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('notas')
 export class NotasController {
 	constructor(private readonly notasService: NotasService) {}

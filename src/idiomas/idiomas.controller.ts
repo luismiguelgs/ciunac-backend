@@ -3,9 +3,11 @@ import { IdiomasService } from './idiomas.service';
 import { CreateIdiomaDto } from './dto/create-idioma.dto';
 import { UpdateIdiomaDto } from './dto/update-idioma.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('idiomas')
 export class IdiomasController {
 	constructor(private readonly idiomasService: IdiomasService) {}

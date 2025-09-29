@@ -2,9 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { CronogramaubicacionService } from './cronogramaubicacion.service';
 import { CreateCronogramaubicacionDto } from './dto/create-cronogramaubicacion.dto';
 import { UpdateCronogramaubicacionDto } from './dto/update-cronogramaubicacion.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('cronogramaubicacion')
 export class CronogramaubicacionController {
 	constructor(private readonly cronogramaubicacionService: CronogramaubicacionService) {}

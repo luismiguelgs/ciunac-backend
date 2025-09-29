@@ -3,9 +3,11 @@ import { DetallesubicacionService } from './detallesubicacion.service';
 import { CreateDetallesubicacionDto } from './dto/create-detallesubicacion.dto';
 import { UpdateDetallesubicacionDto } from './dto/update-detallesubicacion.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('detallesubicacion')
 export class DetallesubicacionController {
 	constructor(private readonly detallesubicacionService: DetallesubicacionService) {}

@@ -3,9 +3,11 @@ import { FacultadesService } from './facultades.service';
 import { CreateFacultadeDto } from './dto/create-facultade.dto';
 import { UpdateFacultadeDto } from './dto/update-facultade.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('facultades')
 export class FacultadesController {
     constructor(private readonly facultadesService: FacultadesService) {}

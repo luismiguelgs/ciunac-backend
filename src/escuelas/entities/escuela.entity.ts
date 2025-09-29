@@ -11,6 +11,9 @@ export class Escuela {
     @Column()
     nombre: string;
 
+    @Column({name:'facultad_id', nullable: false})
+    facultadId: number;
+
     // Muchas escuelas pertenecen a una facultad
     @ManyToOne(() => Facultad, (facultad) => facultad.escuelas, {nullable: false})
     @JoinColumn({ name: 'facultad_id' })

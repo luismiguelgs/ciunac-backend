@@ -7,4 +7,7 @@ export class Tipossolicitud {
 
     @Column()
     solicitud: string;
+
+    @Column('numeric', { precision: 10, scale: 2, default: 0 })
+    precio: number;
 }

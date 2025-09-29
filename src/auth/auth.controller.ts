@@ -10,7 +10,8 @@ export class AuthController {
 
     @Post('register')
     async register(@Body() registerDto: RegisterDto) {
-        return this.authService.register(registerDto.email, registerDto.password);
+        console.log('register', registerDto);
+        return this.authService.register(registerDto.email, registerDto.password, registerDto.rol);
     }
 
     @Post('login')

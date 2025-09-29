@@ -3,9 +3,11 @@ import { TipossolicitudService } from './tipossolicitud.service';
 import { CreateTipossolicitudDto } from './dto/create-tipossolicitud.dto';
 import { UpdateTipossolicitudDto } from './dto/update-tipossolicitud.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('tipossolicitud')
 export class TipossolicitudController {
 	constructor(private readonly tipossolicitudService: TipossolicitudService) {}

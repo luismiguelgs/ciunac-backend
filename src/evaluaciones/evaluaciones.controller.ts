@@ -3,9 +3,11 @@ import { EvaluacionesService } from './evaluaciones.service';
 import { CreateEvaluacioneDto } from './dto/create-evaluacion.dto';
 import { UpdateEvaluacioneDto } from './dto/update-evaluacion.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('evaluaciones')
 export class EvaluacionesController {
 	constructor(private readonly evaluacionesService: EvaluacionesService) {}

@@ -3,9 +3,11 @@ import { TextosService } from './textos.service';
 import { CreateTextoDto } from './dto/create-texto.dto';
 import { UpdateTextoDto } from './dto/update-texto.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('textos')
 export class TextosController {
 	constructor(private readonly textosService: TextosService) {}

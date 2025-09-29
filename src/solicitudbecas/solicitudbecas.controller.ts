@@ -3,9 +3,11 @@ import { SolicitudbecasService } from './solicitudbecas.service';
 import { CreateSolicitudbecaDto } from './dto/create-solicitudbeca.dto';
 import { UpdateSolicitudbecaDto } from './dto/update-solicitudbeca.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('solicitudbecas')
 export class SolicitudbecasController {
 	constructor(private readonly solicitudbecasService: SolicitudbecasService) {}

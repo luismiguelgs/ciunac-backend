@@ -3,9 +3,11 @@ import { NotasfinalService } from './notasfinal.service';
 import { CreateNotasfinalDto } from './dto/create-notasfinal.dto';
 import { UpdateNotasfinalDto } from './dto/update-notasfinal.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('notasfinal')
 export class NotasfinalController {
 	constructor(private readonly notasfinalService: NotasfinalService) {}

@@ -4,9 +4,11 @@ import { CreateEscuelaDto } from './dto/create-escuela.dto';
 import { UpdateEscuelaDto } from './dto/update-escuela.dto';
 import { Escuela } from './entities/escuela.entity';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('escuelas')
 export class EscuelasController {
 	constructor(private readonly escuelasService: EscuelasService) {}

@@ -3,7 +3,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Provider, Rol, Usuario } from './entities/usuario.entity';
+import { Provider, RolUsuario, Usuario } from './entities/usuario.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -15,21 +15,21 @@ export class UsuariosService {
     async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
       	const nuevo = this.usuarioRepo.create(createUsuarioDto);
 		return await this.usuarioRepo.save(nuevo);
-    }
+    }			
 
-	async createLocal(email: string, password: string, rol: Rol) {
+	async createLocal(email: string, password: string, rol?: RolUsuario) {
 		const salt = await bcrypt.genSalt();
 		const hashedPassword = await bcrypt.hash(password, salt);
 		const user = this.usuarioRepo.create({
 			email,
 			password: hashedPassword,
 			provider: 'local',
-			rol,
+			rol: rol
 		});
 		return await this.usuarioRepo.save(user);
 	}
 
-	async createOAuth(email: string, provider: Provider, providerId: string, rol:Rol) {
+	async createOAuth(email: string, provider: Provider, providerId: string, rol:RolUsuario) {
 		const user = this.usuarioRepo.create({
 			email,
 			provider,

@@ -3,9 +3,11 @@ import { ExamenesubicacionService } from './examenesubicacion.service';
 import { CreateExamenesubicacionDto } from './dto/create-examenesubicacion.dto';
 import { UpdateExamenesubicacionDto } from './dto/update-examenesubicacion.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+//@UseGuards(JwtAuthGuard)
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(ApiKeyGuard)		
 @Controller('examenesubicacion')
 export class ExamenesubicacionController {
 	constructor(private readonly examenesubicacionService: ExamenesubicacionService) {}

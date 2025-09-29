@@ -3,7 +3,12 @@ import { Estudiante } from "../../estudiantes/entities/estudiante.entity";
 import { Docente } from "src/docentes/entities/docente.entity";
 
 export type Provider = 'local' | 'google' | 'facebook';
-export type Rol = 'estudiante' | 'docente' | 'admin';
+
+export enum RolUsuario {
+  ESTUDIANTE = 'ESTUDIANTE',
+  DOCENTE = 'DOCENTE',
+  ADMINISTRATIVO = 'ADMINISTRATIVO',
+}
 
 @Entity('usuarios')
 export class Usuario {
@@ -25,8 +30,8 @@ export class Usuario {
     @Column({type: 'varchar', nullable: true, name: 'refresh_token_hash'})
     refreshTokenHash? : string | null
 
-    @Column({type: 'varchar', default: 'estudiante'})
-    rol: string;
+    @Column({type: 'enum', enum: RolUsuario})
+    rol: RolUsuario;
 
     @CreateDateColumn({name: 'creado_en'})
     creadoEn: Date;
