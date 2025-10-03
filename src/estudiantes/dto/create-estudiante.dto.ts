@@ -43,6 +43,10 @@ export class CreateEstudianteDto {
 
     @IsOptional()
     @IsString()
+    codigo?: string;
+
+    @IsOptional()
+    @IsString()
     direccion: string;
 
 }

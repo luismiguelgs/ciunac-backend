@@ -26,7 +26,7 @@ export class EstudiantesController {
 	findOne(@Param('id') id: string) {
 		return this.estudiantesService.findOne(id);
 	}
-	@Get('/bucar/:dni')
+	@Get('/buscar/:dni')
 	findByDni(@Param('dni') dni: string) {
 		return this.estudiantesService.findByDni(dni);
 	}

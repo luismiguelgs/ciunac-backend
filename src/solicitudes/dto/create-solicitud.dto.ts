@@ -2,7 +2,7 @@ import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "c
 
 export class CreateSolicitudDto {
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     estudianteId: string;
 
     @IsNotEmpty()
@@ -27,10 +27,6 @@ export class CreateSolicitudDto {
 
     @IsOptional()
     @IsBoolean()
-    trabajador: boolean;
-
-    @IsOptional()
-    @IsBoolean()
     alumnoCiunac: boolean;
 
     @IsOptional()
@@ -42,14 +38,22 @@ export class CreateSolicitudDto {
     pago: number;
 
     @IsOptional()
+    @IsBoolean()
+    digital: boolean;
+
+    @IsOptional()
     @IsString()
     numeroVoucher: string;
 
     @IsOptional()
     @IsString()
-    imgCertTrabajo: string;
+    imgVoucher: string;
 
     @IsOptional()
     @IsString()
     imgCertEstudio: string;
+
+    @IsOptional()
+    @IsBoolean()
+    manual: boolean;
 }

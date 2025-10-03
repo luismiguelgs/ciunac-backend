@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Facultad } from '../../facultades/entities/facultad.entity';
 import { Escuela } from '../../escuelas/entities/escuela.entity';
+import { Solicitud } from 'src/solicitudes/entities/solicitud.entity';
 
 
 @Entity('estudiantes')
@@ -39,6 +40,9 @@ export class Estudiante {
     @Column({ name: 'escuela_id', nullable: true })
     escuelaId?: number;
 
+    @Column({type:'varchar', length: 50, nullable: true})
+    codigo: string;
+
     @Column({ nullable: true })
     direccion: string;
 
@@ -62,5 +66,8 @@ export class Estudiante {
     @ManyToOne(() => Escuela, (escuela) => escuela.estudiantes, { nullable: true })
     @JoinColumn({ name: 'escuela_id' })
     escuela?: Escuela;
+
+    @OneToMany(() => Solicitud, (solicitud) => solicitud.estudiante)
+    solicitudes: Solicitud[];
 }
 

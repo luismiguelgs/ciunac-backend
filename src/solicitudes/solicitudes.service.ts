@@ -11,19 +11,22 @@ export class SolicitudesService {
 		@InjectRepository(Solicitud)
 		private solicitudRepository: Repository<Solicitud>,
 	) {}
+
 	async create(createSolicitudDto: CreateSolicitudDto) : Promise<Solicitud> {
 		const item = this.solicitudRepository.create(createSolicitudDto);
 		return await this.solicitudRepository.save(item);
 	}
+
 	async findAll() : Promise<Solicitud[]> {
 		return await this.solicitudRepository.find({
-			relations:['estudiante','tipossolicitud','idioma','nivel','estado'],
+			relations:['estudiante','tiposSolicitud','idioma','nivel','estado'],
 		});
 	}
+
 	async findOne(id: number) : Promise<Solicitud | null> {
 		return await this.solicitudRepository.findOne({
 			where:{id},
-			relations:['estudiante','tipossolicitud','idioma','nivel','estado'],
+			relations:['estudiante','tiposSolicitud','idioma','nivel','estado'],
 		});
 	}
 
@@ -35,12 +38,42 @@ export class SolicitudesService {
 		await this.solicitudRepository.update(id, updateSolicitudDto);
 		return await this.findOne(id);
 	}
-	async remove(id: number) : Promise<Solicitud | null> {
+
+	// Buscar solicitudes por numero_documento del estudiante
+	async findByNumeroDocumento(numeroDocumento: string) : Promise<Solicitud[]> {
+		return await this.solicitudRepository.find({
+			relations: ['estudiante', 'tiposSolicitud', 'idioma', 'nivel', 'estado'],
+			where: {
+				estudiante: {
+					numeroDocumento,
+				},
+			},
+		});
+	}
+
+	// Buscar solicitudes por estado_id
+	async findByEstadoId(estadoId: number) : Promise<Solicitud[]> {
+		return await this.solicitudRepository.find({
+			relations: ['estudiante', 'tiposSolicitud', 'idioma', 'nivel', 'estado'],
+			where: {
+				estado: {
+					id: estadoId,
+				},
+			},
+		});
+	}
+
+	async remove(id: number): Promise<Solicitud | null> {
 		const item = await this.findOne(id);
+
 		if (!item) {
 			return null;
 		}
-		await this.solicitudRepository.delete(id);
+
+		// Cambiar el estado a rechazado (id = 5)
+		item.estado = { id: 5 } as any; // 👈 le asignamos un Estado por id
+
+		await this.solicitudRepository.save(item);
 		return item;
 	}
 }

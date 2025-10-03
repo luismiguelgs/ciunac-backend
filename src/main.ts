@@ -10,7 +10,7 @@ async function bootstrap() {
 		origin: ['http://localhost:3000'],
 		credentials: true,
 		methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
+		allowedHeaders: ['Content-Type', 'Authorization','x-api-key'],
 	});
 
 	app.useGlobalPipes(new ValidationPipe({

@@ -1,4 +1,5 @@
-import { Column, Entity } from "typeorm";
+import { Solicitud } from "src/solicitudes/entities/solicitud.entity";
+import { Column, Entity, OneToMany } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 
 export enum EstadoReferencia {
@@ -12,13 +13,18 @@ export class Estado {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type:'varchar', length: 50})
     nombre: string;
 
     @Column({
-      type: 'enum',
-      enum: EstadoReferencia,
-      default: EstadoReferencia.SOLICITUD
+		type: 'enum',
+		enum: EstadoReferencia,
+		default: EstadoReferencia.SOLICITUD
     })
-    referencia: EstadoReferencia;
+	referencia: EstadoReferencia;
+
+	//Relaciones
+	@OneToMany(() => Solicitud, (solicitud) => solicitud.estado)
+	solicitudes: Solicitud[];
+    
 }

@@ -28,9 +28,6 @@ export class Solicitud {
     @Column()
     periodo: string;
 
-    @Column({ default: false })
-    trabajador: boolean;
-
     @Column({ name: 'alumno_ciunac', default: false })
     alumnoCiunac: boolean;
 
@@ -43,11 +40,17 @@ export class Solicitud {
     @Column({name:'numero_voucher'})
     numeroVoucher: string;
 
-    @Column({name:'img_cert_trabajo'})
-    imgCertTrabajo: string;
+    @Column({name:'img_voucher', type:'varchar', nullable: true})
+    imgVoucher: string;
 
-    @Column({name:'img_cert_estudio'})
+    @Column({name:'img_cert_estudio', nullable:true})
     imgCertEstudio: string;
+
+    @Column({ type: 'boolean', default: false })
+    digital: boolean;
+
+    @Column({ name: 'manual', default: false })
+    manual: boolean;
 
     @Column({name: 'creado_en'})
     creadoEn: Date;
@@ -56,13 +59,13 @@ export class Solicitud {
     modificadoEn: Date;
 
     //relaciones
-    @ManyToOne(() => Estudiante)
+    @ManyToOne(() => Estudiante, (estudiante) => estudiante.solicitudes)
     @JoinColumn({ name: 'estudiante_id' })
     estudiante: Estudiante;     
 
     @ManyToOne(() => Tipossolicitud)
     @JoinColumn({ name: 'tipo_solicitud_id' })
-    tipossolicitud: Tipossolicitud;
+    tiposSolicitud: Tipossolicitud;
 
     @ManyToOne(() => Idioma)
     @JoinColumn({ name: 'idioma_id' })
@@ -72,7 +75,7 @@ export class Solicitud {
     @JoinColumn({ name: 'nivel_id' })
     nivel: Nivel;
 
-    @ManyToOne(() => Estado)
+    @ManyToOne(() => Estado, (estado) => estado.solicitudes)
     @JoinColumn({ name: 'estado_id' })
     estado: Estado;
 }
