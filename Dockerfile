@@ -14,11 +14,11 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-RUN npm install --omit=dev
-
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package*.json ./
+
+RUN npm install --omit=dev
 
 ENV NODE_ENV=production
 
