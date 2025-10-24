@@ -38,6 +38,12 @@ export class DocentesService {
 		});
 	}
 	async update(id: string, updateDocenteDto: UpdateDocenteDto) : Promise<Docente | null> {
+		const existe = await this.docenteRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.docenteRepository.update(id, updateDocenteDto);
 		return this.findOne(id);
 	}
@@ -47,7 +53,7 @@ export class DocentesService {
 		if (!docente) {
 			throw new Error('Docente no encontrado');
 		}
-		await this.docenteRepository.remove(docente);
-		return { message: 'Docente eliminado' };
+		await this.docenteRepository.update(id, { activo: false });
+        return { message: 'Docente desactivado (eliminación lógica) exitosamente' };
 	}
 }

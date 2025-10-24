@@ -30,6 +30,12 @@ export class GruposService {
 	}
 
 	async update(id: number, updateGrupoDto: UpdateGrupoDto) : Promise<Grupo | null> {
+		const existe = await this.grupoRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.grupoRepository.update(id, updateGrupoDto);
 		return this.findOne(id);
 	}

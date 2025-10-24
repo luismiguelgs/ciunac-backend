@@ -1,5 +1,5 @@
-import { IsBoolean, IsNumber, IsString, IsDateString } from "class-validator";
-import { TipoCertificado } from "../schemas/certificado.schema";
+import { IsBoolean, IsNumber, IsString, IsDateString, IsDate, IsOptional } from "class-validator";
+import { Modalidad, TipoCertificado } from "../schemas/certificado.schema";
 import { IsEnum, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
@@ -10,8 +10,8 @@ class NotaCertificadoDto {
     @IsString()
     periodo: string;
 
-    @IsBoolean()
-    modalidad: boolean;
+    @IsEnum(Modalidad)
+    modalidad: Modalidad;
 
     @IsNumber()
     nota: number;
@@ -28,28 +28,39 @@ export class CreateCertificadoDto {
     estudiante: string;
 
     @IsString()
+    numeroDocumento: string;
+
+    @IsString()
     idioma: string;
+
+    @IsNumber()
+    idiomaId: number;
 
     @IsString()
     nivel: string;
 
     @IsNumber()
-    cantidad_horas: number;
+    nivelId: number;
 
     @IsNumber()
-    solicitud_id: number;
+    cantidadHoras: number;
 
-    @IsDateString()
-    fecha_emision: Date;
+    @IsNumber()
+    solicitudId: number;
+
+    @Type(() => Date)
+    @IsDate({ message: 'La fecha de emisión debe ser una fecha válida' })
+    fechaEmision: Date;
 
     @IsString()
-    numero_registro: string;
+    numeroRegistro: string;
 
-    @IsDateString()
-    fecha_concluido: Date;
-
+    @Type(() => Date)
+    @IsDate({ message: 'La fecha de conclusión debe ser una fecha válida' })
+    fechaConcluido: Date;
+    
     @IsBoolean()
-    curricula_anterior: boolean;
+    curriculaAnterior: boolean;
 
     @IsBoolean()
     impreso: boolean;
@@ -57,11 +68,25 @@ export class CreateCertificadoDto {
     @IsBoolean()
     duplicado: boolean;
 
+    @IsOptional()
     @IsString()
-    certificado_original: string;
+    certificadoOriginal: string;
 
     @IsString()
-    elaborado_por: string;
+    elaboradoPor: string;
+
+    @IsOptional()
+    @IsString()
+    url: string;
+
+    @IsOptional()
+    @IsBoolean()
+    aceptado: boolean;
+
+    @IsOptional()
+    @Type(() => Date)
+    @IsDate({ message: 'La fecha de aceptación debe ser una fecha válida' })
+    fechaAceptacion: Date;
 
     @IsArray()
     @ValidateNested({ each: true })

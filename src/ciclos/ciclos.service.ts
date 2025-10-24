@@ -31,6 +31,12 @@ export class CiclosService {
 	}
 
 	async update(id: number, updateCicloDto: UpdateCicloDto) : Promise<Ciclo | null> {
+		const existe = await this.cicloRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.cicloRepository.update(id, updateCicloDto);
 		return await this.findOne(id);
 	}

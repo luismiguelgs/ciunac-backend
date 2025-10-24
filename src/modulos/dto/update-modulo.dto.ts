@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateModuloDto } from './create-modulo.dto';
-import { IsString, IsDateString, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsDate } from 'class-validator';
 
 export class UpdateModuloDto extends PartialType(CreateModuloDto) {
     @IsOptional()
@@ -8,10 +8,14 @@ export class UpdateModuloDto extends PartialType(CreateModuloDto) {
     nombre?: string;
 
     @IsOptional()
-    @IsDateString()
+    @IsDate()
     fechaInicio?: Date;
 
     @IsOptional()
-    @IsDateString()
+    @IsDate()
     fechaFin?: Date;
+
+    @IsOptional()
+    @IsNumber()
+    orden?: number;
 }

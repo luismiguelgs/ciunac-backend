@@ -11,13 +11,23 @@ export class CertificadosService {
 		@InjectModel(Certificado.name) 
 		private certificadoModel: Model<CertificadoDocument>
 	) {}
+
 	async create(createCertificadoDto: CreateCertificadoDto) : Promise<Certificado> {
 		const createdCertificado = new this.certificadoModel(createCertificadoDto);
 		return createdCertificado.save();
 	}
+
 	async findAll() : Promise<Certificado[]> {
 		return this.certificadoModel.find().exec();
 	}
+
+	async findByImpreso(impreso: boolean) : Promise<Certificado[]> {
+		return this.certificadoModel
+			.find({ impreso }) // Filtrar por impreso true o false
+			.sort({ fechaEmision: -1 }) // Ordenar por fecha de emisión descendente
+			.exec();
+	}
+
 	async findOne(id: string) : Promise<Certificado | null> {
 		return this.certificadoModel.findById(id).exec();
 	}

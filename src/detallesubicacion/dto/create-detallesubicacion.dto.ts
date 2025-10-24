@@ -1,6 +1,14 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateDetallesubicacionDto {
+    @IsNotEmpty()
+    @IsNumber()
+    solicitudId: number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    idiomaId: number;
+
     @IsNotEmpty()
     @IsNumber()
     nivelId: number;
@@ -22,6 +30,6 @@ export class CreateDetallesubicacionDto {
     calificacionId: number;
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsBoolean()
     terminado: boolean;
 }

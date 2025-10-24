@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { CertificadosService } from './certificados.service';
 import { CreateCertificadoDto } from './dto/create-certificado.dto';
 import { UpdateCertificadoDto } from './dto/update-certificado.dto';
 //import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+import { Certificado } from './schemas/certificado.schema';
 
 //@UseGuards(JwtAuthGuard)
 @UseGuards(ApiKeyGuard)		
@@ -19,6 +20,12 @@ export class CertificadosController {
 	@Get()
 	findAll() {
 		return this.certificadosService.findAll();
+	}
+
+	@Get('impresos')
+	findByImpreso(@Query('impreso') impreso: string): Promise<Certificado[]> {
+		const impresoBool = impreso === 'true';
+		return this.certificadosService.findByImpreso(impresoBool);
 	}
 	
 	@Get(':id')

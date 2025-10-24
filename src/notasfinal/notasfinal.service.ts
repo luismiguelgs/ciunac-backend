@@ -29,6 +29,12 @@ export class NotasfinalService {
 		});
 	}
 	async update(id: number, updateNotasfinalDto: UpdateNotasfinalDto) : Promise<Notasfinal | null> {
+		const existe = await this.notasfinalRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.notasfinalRepository.update(id, updateNotasfinalDto);
 		return await this.findOne(id);
 	}

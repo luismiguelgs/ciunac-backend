@@ -18,7 +18,11 @@ export class ModulosService {
 	}
 
 	findAll() {
-		return this.repo.find();
+		return this.repo.find({
+			order: {
+				orden: 'DESC',
+			},
+		});
 	}
 
 	findOne(id: number) {
@@ -30,6 +34,12 @@ export class ModulosService {
 	}
 
 	async update(id: number, updateModuloDto: UpdateModuloDto) {
+		const existe = await this.repo.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.repo.update(id, updateModuloDto);
     	return this.findOne(id);
 	}

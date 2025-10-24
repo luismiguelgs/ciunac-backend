@@ -17,13 +17,16 @@ export class CalificacionesubicacionService {
 	}
 	async findAll() : Promise<Calificacionesubicacion[]> {
 		return await this.calificacionesubicacionRepository.find({
-			relations:['idioma','nivel','ciclo'],
+			relations:['ciclo','idioma','nivel'],
+			order: {
+				id: 'ASC',
+			},
 		});
 	}
 	async findOne(id: number) : Promise<Calificacionesubicacion | null> {
 		return await this.calificacionesubicacionRepository.findOne({
 			where: { id },
-			relations:['idioma','nivel','ciclo'],
+			relations:['ciclo','idioma','nivel'],
 		});
 	}
 	async update(id: number, updateCalificacionesubicacionDto: UpdateCalificacionesubicacionDto) : Promise<Calificacionesubicacion | null> {

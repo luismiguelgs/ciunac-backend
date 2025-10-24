@@ -15,6 +15,9 @@ export class Modulo {
     @Column({ name: 'fecha_fin', type: 'date' })
     fechaFin: Date;
 
+    @Column({ type: 'int', default: 0 })
+    orden: number;
+
     //Relaciones
     @OneToMany(() => Grupo, (grupo) => grupo.modulo)
     grupos: Grupo[];

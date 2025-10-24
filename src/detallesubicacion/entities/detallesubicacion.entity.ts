@@ -3,11 +3,18 @@ import { Examenesubicacion } from 'src/examenesubicacion/entities/examenesubicac
 import { Calificacionesubicacion } from 'src/calificacionesubicacion/entities/calificacionesubicacion.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Estudiante } from 'src/estudiantes/entities/estudiante.entity';
+import { Idioma } from 'src/idiomas/entities/idioma.entity';
 
 @Entity('detalles_ubicacion')
 export class Detallesubicacion {
 	@PrimaryGeneratedColumn()
 	id: number;
+
+    @Column({name:'solicitud_id', nullable: false})
+    solicitudId: number;
+
+    @Column({name:'idioma_id', nullable: false})
+    idiomaId: number;
 
 	@Column({name:'nivel_id', nullable: false})
 	nivelId: number;
@@ -34,6 +41,10 @@ export class Detallesubicacion {
     modificadoEn: Date;
 
     //Relaciones
+    @ManyToOne(() => Idioma)
+    @JoinColumn({ name: 'idioma_id' })
+    idioma: Idioma;
+
     @ManyToOne(() => Nivel)
     @JoinColumn({ name: 'nivel_id' })
     nivel: Nivel;  

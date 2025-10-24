@@ -1,7 +1,7 @@
 import { Ciclo } from 'src/ciclos/entities/ciclo.entity';
 import { Idioma } from 'src/idiomas/entities/idioma.entity';
 import { Nivel } from 'src/niveles/entities/nivel.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('calificaciones_ubicacion')
 export class Calificacionesubicacion {
@@ -32,7 +32,7 @@ export class Calificacionesubicacion {
     @JoinColumn({name:'nivel_id'})
     nivel: Nivel;
 
-    @ManyToOne(() => Ciclo)
+    @OneToOne(() => Ciclo)
     @JoinColumn({name:'ciclo_id'})
     ciclo: Ciclo;
 }

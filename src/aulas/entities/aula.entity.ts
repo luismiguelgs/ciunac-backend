@@ -13,4 +13,8 @@ export class Aula {
 
     @Column({nullable: false})
     tipo: string; //VIRTUAL , FISICA
+
+    @Column({nullable: true})
+    ubicacion: string;
+
 }

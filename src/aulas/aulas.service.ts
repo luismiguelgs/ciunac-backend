@@ -26,6 +26,10 @@ export class AulasService {
 	}
 
 	async update(id: number, updateAulaDto: UpdateAulaDto): Promise<Aula | null> {
+		const existe = await this.aulaRepository.findOne({where: {id}});
+		if (!existe) {
+			return null;
+		}
 		await this.aulaRepository.update(id, updateAulaDto);
 		return await this.findOne(id)
 	}

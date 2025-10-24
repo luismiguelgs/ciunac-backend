@@ -1,5 +1,5 @@
 
-import { IsBoolean, IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateDocenteDto {
     @IsNotEmpty()
@@ -19,7 +19,7 @@ export class CreateDocenteDto {
     celular: string;
 
     @IsOptional()
-    @IsDateString()
+    @IsDate()
     fechaNacimiento: Date
 
     @IsOptional()

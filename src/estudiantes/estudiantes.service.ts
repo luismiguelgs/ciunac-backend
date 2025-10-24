@@ -31,6 +31,12 @@ export class EstudiantesService {
 	}
 
 	async update(id: string, updateEstudianteDto: UpdateEstudianteDto) : Promise<Estudiante | null> {
+		const existe = await this.estudianteRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.estudianteRepository.update(id, updateEstudianteDto);
 		return this.findOne(id);
 	}

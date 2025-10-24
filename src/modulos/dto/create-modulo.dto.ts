@@ -1,12 +1,15 @@
-import { IsString, IsDateString } from 'class-validator';
+import { IsString, IsNumber, IsDate } from 'class-validator';
 
 export class CreateModuloDto {
     @IsString()
     nombre: string;
 
-    @IsDateString()
+    @IsDate()
     fechaInicio: Date;
 
-    @IsDateString()
+    @IsDate()
     fechaFin: Date;
+
+    @IsNumber()
+    orden: number;
 }

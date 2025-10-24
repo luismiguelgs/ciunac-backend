@@ -1,7 +1,8 @@
-import { IsString, IsNotEmpty, IsEnum, IsNumber } from "class-validator";
+import { IsString, IsNotEmpty, IsEnum, IsNumber, IsOptional } from "class-validator";
 
 export class CreateAulaDto {
     @IsNumber()
+    @IsNotEmpty()
     capacidad?: number;
 
     @IsString()
@@ -11,4 +12,8 @@ export class CreateAulaDto {
     @IsEnum(['VIRTUAL','FISICA'])
     @IsNotEmpty()
     tipo: string;
+
+    @IsString()
+    @IsOptional()
+    ubicacion: string;
 }

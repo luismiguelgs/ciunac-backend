@@ -27,6 +27,12 @@ export class EvaluacionesService {
 		});
 	}
 	async update(id: number, updateEvaluacioneDto: UpdateEvaluacioneDto) : Promise<Evaluacion | null> {
+		const existe = await this.evaluacionRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.evaluacionRepository.update(id, updateEvaluacioneDto);
 		return await this.findOne(id)
 	}

@@ -27,6 +27,12 @@ export class NotasService {
 		});
 	}
     async update(id: number, updateNotaDto: UpdateNotaDto): Promise<Nota | null> {
+		const existe = await this.notaRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.notaRepository.update(id, updateNotaDto);
 		return await this.findOne(id);
     }

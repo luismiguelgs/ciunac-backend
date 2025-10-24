@@ -30,6 +30,12 @@ export class FacultadesService {
 	}
 
 	async update(id: number, updateFacultadeDto: UpdateFacultadeDto) {
+		const existe = await this.facultadRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.facultadRepository.update(id, updateFacultadeDto);
 		return this.findOne(id);
 	}

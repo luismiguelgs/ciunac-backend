@@ -30,6 +30,12 @@ export class NivelesService {
 	}
 
 	async update(id: number, updateNivelDto: UpdateNivelDto) {
+		const existe = await this.nivelRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.nivelRepository.update(id, updateNivelDto);
 		return await this.findOne(id);
 	}

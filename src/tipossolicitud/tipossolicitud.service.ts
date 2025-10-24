@@ -29,6 +29,12 @@ export class TipossolicitudService {
 	}
 
 	async update(id: number, updateTipossolicitudDto: UpdateTipossolicitudDto): Promise<Tipossolicitud | null> {
+		const existe = await this.tipossolicitudRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.tipossolicitudRepository.update(id, updateTipossolicitudDto);
 		return await this.findOne(id);
 	}

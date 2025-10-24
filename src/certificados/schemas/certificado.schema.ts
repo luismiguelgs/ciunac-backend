@@ -7,6 +7,11 @@ export enum TipoCertificado {
   FISICO = 'FISICO',
   VIRTUAL = 'VIRTUAL',
 }
+export enum Modalidad {
+  INTENSIVO = 'C.I.',
+  REGULAR = 'C.R.',
+  EXAMEN = 'EX.U.'
+}
 
 export class NotaCertificado {
   @Prop({ required: true })
@@ -16,7 +21,7 @@ export class NotaCertificado {
   periodo: string;
 
   @Prop({ required: true })
-  modalidad: boolean;
+  modalidad: Modalidad;
 
   @Prop({ required: true })
   nota: number;
@@ -37,28 +42,37 @@ export class Certificado {
   estudiante: string;
 
   @Prop({ required: true })
+  numeroDocumento: string;
+
+  @Prop({ required : true})
+  idiomaId: number
+
+  @Prop({ required: true })
   idioma: string;
 
   @Prop({ required: true })
   nivel: string;
 
-  @Prop({ required: true })
-  cantidad_horas: number;
+  @Prop({ required: true})
+  nivelId: number;
 
-  @Prop({ type: Number, required: true })
-  solicitud_id: number; // referencia al sistema transaccional (Postgres)
+  @Prop({ required: true, name: 'cantidad_horas' })
+  cantidadHoras: number;
 
-  @Prop({ required: true })
-  fecha_emision: Date;
+  @Prop({ type: Number, required: true, name: 'solicitud_id' })
+  solicitudId: number; // referencia al sistema transaccional (Postgres)
 
-  @Prop({ required: true })
-  numero_registro: string;
+  @Prop({ required: true, name: 'fecha_emision' })
+  fechaEmision: Date;
 
-  @Prop({ required: true })
-  fecha_concluido: Date;
+  @Prop({ required: true, name: 'numero_registro' })
+  numeroRegistro: string;
 
-  @Prop({ default: false })
-  curricula_anterior: boolean;
+  @Prop({ required: true, name: 'fecha_concluido' })
+  fechaConcluido: Date;
+
+  @Prop({ default: false, name: 'curricula_anterior' })
+  curriculaAnterior: boolean;
 
   @Prop({ default: false })
   impreso: boolean;
@@ -66,13 +80,22 @@ export class Certificado {
   @Prop({ default: false })
   duplicado: boolean;
 
-  @Prop({ required: true })
-  certificado_original: string;
+  @Prop({ name: 'certificado_original' })
+  certificadoOriginal: string;
 
-  @Prop({ required: true })
-  elaborado_por: string;
+  @Prop({ required: true, name: 'elaborado_por' })
+  elaboradoPor: string;
 
-  @Prop({ type: [NotaCertificado], default: [] })
+  @Prop({ default: null })
+  url: string;
+
+  @Prop({ default: false })
+  aceptado: boolean;
+
+  @Prop({ required: false, name: 'fecha_aceptacion', type: Date })
+  fechaAceptacion: Date;
+
+  @Prop({ type: [NotaCertificado], default: [], name: 'notas' })
   notas: NotaCertificado[];
 }
 

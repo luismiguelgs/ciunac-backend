@@ -33,7 +33,13 @@ export class IdiomasService {
     }
 
     async update(id: number, updateIdiomaDto: UpdateIdiomaDto) : Promise<Idioma | null> {
-      	await this.idiomaRepository.update(id, updateIdiomaDto);
+		const existe = await this.idiomaRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
+		await this.idiomaRepository.update(id, updateIdiomaDto);
 		return this.findOne(id);
     }
 

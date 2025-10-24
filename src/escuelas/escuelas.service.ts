@@ -29,6 +29,12 @@ export class EscuelasService {
 	}
 
 	async update(id: number, updateEscuelaDto: UpdateEscuelaDto) {
+		const existe = await this.escuelaRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
+			return null;
+		}
 		await this.escuelaRepository.update(id, updateEscuelaDto);
 		return await this.escuelaRepository.findOne({
 			where: {

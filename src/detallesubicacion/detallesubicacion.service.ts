@@ -19,26 +19,26 @@ export class DetallesubicacionService {
 
 	async findAll() : Promise<Detallesubicacion[]> {
 		return this.detallesubicacionRepository.find({
-			relations: ['nivel', 'examen', 'estudiante', 'calificacion'],
+			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
 		});
 	}
 
 	async findOne(id: number) : Promise<Detallesubicacion | null> {
 		return this.detallesubicacionRepository.findOne({
 			where: { id },
-			relations: ['nivel', 'examen', 'estudiante', 'calificacion'],
+			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
 		});
 	}
 
 	async update(id: number, updateDetallesubicacionDto: UpdateDetallesubicacionDto) : Promise<Detallesubicacion | null> {
-		const detallesubicacion = await this.findOne(id);
-		if (!detallesubicacion) {
+		const existe = await this.detallesubicacionRepository.findOne({
+			where: { id },
+		});
+		if (!existe) {
 			return null;
 		}
-		return this.detallesubicacionRepository.save({
-			...detallesubicacion,
-			...updateDetallesubicacionDto,
-		});
+		await this.detallesubicacionRepository.update(id, updateDetallesubicacionDto);
+		return this.findOne(id);
 	}
 
 	async remove(id: number) : Promise<boolean> {
