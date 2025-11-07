@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export class CreateDetallesubicacionDto {
     @IsNotEmpty()
@@ -32,4 +32,8 @@ export class CreateDetallesubicacionDto {
     @IsNotEmpty()
     @IsBoolean()
     terminado: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    activo: boolean;
 }

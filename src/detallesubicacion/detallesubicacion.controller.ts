@@ -27,6 +27,16 @@ export class DetallesubicacionController {
 		return this.detallesubicacionService.findOne(+id);
 	}
 
+	@Get('examen/:id')
+	findByExamen(@Param('id') id: string) {
+		return this.detallesubicacionService.findByExamen(+id);
+	}
+
+	@Get('estudiante/documento/:documentNumber')
+	findByDocumentNumber(@Param('documentNumber') documentNumber: string) {
+		return this.detallesubicacionService.findByDocumentNumber(documentNumber);
+	}
+
 	@Patch(':id')
 	update(@Param('id') id: string, @Body() updateDetallesubicacionDto: UpdateDetallesubicacionDto) {
 		return this.detallesubicacionService.update(+id, updateDetallesubicacionDto);

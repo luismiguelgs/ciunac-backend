@@ -35,6 +35,7 @@ import { CertificadosModule } from './certificados/certificados.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
 	imports: [
@@ -100,6 +101,7 @@ import { AuthModule } from './auth/auth.module';
 		ConstanciasModule,
 		CertificadosModule,
 		AuthModule,
+		UploadModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

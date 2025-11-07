@@ -34,6 +34,9 @@ export class Detallesubicacion {
     @Column({name:'terminado', nullable: false})
     terminado: boolean;
 
+    @Column({default: true})
+    activo: boolean;
+
     @Column({ name: 'creado_en', default: () => 'CURRENT_TIMESTAMP' })
     creadoEn: Date;
 

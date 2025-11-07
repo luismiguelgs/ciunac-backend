@@ -21,6 +21,10 @@ export class CertificadosService {
 		return this.certificadoModel.find().exec();
 	}
 
+	async findBySolicitudId(solicitudId: number) : Promise<Certificado | null> {
+		return this.certificadoModel.findOne({ solicitudId }).exec();
+	}
+
 	async findByImpreso(impreso: boolean) : Promise<Certificado[]> {
 		return this.certificadoModel
 			.find({ impreso }) // Filtrar por impreso true o false

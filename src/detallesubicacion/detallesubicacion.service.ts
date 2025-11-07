@@ -19,13 +19,38 @@ export class DetallesubicacionService {
 
 	async findAll() : Promise<Detallesubicacion[]> {
 		return this.detallesubicacionRepository.find({
+			where: { activo: true },
 			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
+		});
+	}
+
+	async findByExamen(examenId: number) : Promise<Detallesubicacion[]> {
+		return this.detallesubicacionRepository.find({
+			where: { examenId, activo: true },
+			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
+			order: {
+				estudiante: {
+					apellidos: 'ASC',
+				},
+			},
 		});
 	}
 
 	async findOne(id: number) : Promise<Detallesubicacion | null> {
 		return this.detallesubicacionRepository.findOne({
 			where: { id },
+			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
+		});
+	}
+
+	async findByDocumentNumber(numeroDocumento: string) : Promise<Detallesubicacion[]> {
+		return this.detallesubicacionRepository.find({
+			where: { 
+				estudiante: {
+					numeroDocumento,
+				},
+				activo: true,
+			},
 			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
 		});
 	}
@@ -46,7 +71,7 @@ export class DetallesubicacionService {
 		if (!detallesubicacion) {
 			return false;
 		}
-		await this.detallesubicacionRepository.delete(id);
+		await this.detallesubicacionRepository.update(id, { activo: false });
 		return true;
 	}
 }

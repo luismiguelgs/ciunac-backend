@@ -22,6 +22,11 @@ export class CertificadosController {
 		return this.certificadosService.findAll();
 	}
 
+	@Get('solicitud/:solicitudId')
+	findBySolicitudId(@Param('solicitudId') solicitudId: number) {
+		return this.certificadosService.findBySolicitudId(+solicitudId);
+	}
+
 	@Get('impresos')
 	findByImpreso(@Query('impreso') impreso: string): Promise<Certificado[]> {
 		const impresoBool = impreso === 'true';
