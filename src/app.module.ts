@@ -36,6 +36,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
+import { MailerModule } from './mailer/mailer.module';
+import { Q10Module } from './q10/q10.module';
 
 @Module({
 	imports: [
@@ -102,6 +104,8 @@ import { UploadModule } from './upload/upload.module';
 		CertificadosModule,
 		AuthModule,
 		UploadModule,
+		MailerModule,
+		Q10Module,
 	],
 	controllers: [AppController],
 	providers: [AppService],

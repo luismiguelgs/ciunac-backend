@@ -12,7 +12,8 @@ export class EstudiantesService {
     	private readonly estudianteRepository: Repository<Estudiante>,
 	){}
 
-	async create(createEstudianteDto: CreateEstudianteDto): Promise<Estudiante> {
+	async create(createEstudianteDto: CreateEstudianteDto): Promise<any> {
+		// 1️⃣ Guardar localmente
 		const item = this.estudianteRepository.create(createEstudianteDto);
 		return await this.estudianteRepository.save(item);
 	}

@@ -16,5 +16,6 @@ import { Escuela } from 'src/escuelas/entities/escuela.entity';
 	])],
   	controllers: [EstudiantesController],
   	providers: [EstudiantesService],
+	exports: [EstudiantesService]
 })
 export class EstudiantesModule {}

@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsOptional, IsString, IsNumber, IsDateString, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsNumber, IsDateString, IsEnum, isNotEmpty } from 'class-validator';
 
 export class CreateEstudianteDto {
+ 
     @IsNotEmpty()
     @IsString()
     nombres: string;
@@ -48,5 +49,4 @@ export class CreateEstudianteDto {
     @IsOptional()
     @IsString()
     direccion: string;
-
 }

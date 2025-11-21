@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { ConstanciasService } from './constancias.service';
 import { CreateConstanciaDto } from './dto/create-constancia.dto';
 import { UpdateConstanciaDto } from './dto/update-constancia.dto';
 //import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiKeyGuard } from 'src/auth/guards/api-key.guard';
+import { Constancia } from './schemas/constancia.schema';
 
 //@UseGuards(JwtAuthGuard)
 @UseGuards(ApiKeyGuard)		
@@ -19,6 +20,12 @@ export class ConstanciasController {
 	@Get()
 	findAll() {
 		return this.constanciasService.findAll();
+	}
+
+	@Get('impresos')
+	findByImpreso(@Query('impreso') impreso: string): Promise<Constancia[]> {
+		const impresoBoolean = impreso === 'true';
+		return this.constanciasService.findByImpreso(impresoBoolean);
 	}
 	
 	@Get(':id')

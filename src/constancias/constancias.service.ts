@@ -20,6 +20,13 @@ export class ConstanciasService {
     	return this.constanciaModel.find().exec();
     }
 
+    async findByImpreso(impreso: boolean) : Promise<Constancia[]> {
+    	return this.constanciaModel
+    		.find({ impreso }) // Filtrar por impreso true o false
+    		.sort({ creado_en: -1 }) // Ordenar por fecha de creación descendente
+    		.exec();
+    }
+
     async findOne(id: string) : Promise<Constancia | null> {
     	return this.constanciaModel.findById(id).exec();
     }
