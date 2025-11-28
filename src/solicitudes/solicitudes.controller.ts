@@ -60,6 +60,32 @@ export class SolicitudesController {
 		return this.solicitudesService.findByNumeroDocumento(numeroDocumento);
 	}
 
+	// GET /solicitudes/reporte-fechas?inicio=2024-01-01&fin=2024-01-31&tipo=7
+    // GET /solicitudes/reporte-fechas?inicio=2024-01-01&fin=2024-01-31&tipo=n
+	@Get('reporte-fechas')
+	async getReportesPorFechas(
+		@Query('inicio') inicio: string,
+		@Query('fin') fin: string,
+		@Query('tipo') tipo: '7' | 'n',
+	): Promise<Solicitud[]> {
+		if (!inicio || !fin || !tipo) {
+            throw new BadRequestException('Faltan parámetros: inicio, fin o tipo');
+        }
+
+        // Validamos que 'tipo' sea estrictamente "7" o "n"
+        if (tipo !== '7' && tipo !== 'n') {
+            throw new BadRequestException('El parámetro "tipo" solo acepta "7" (Exámenes) o "n" (El resto)');
+        }
+
+        // Llamamos al servicio casteando el tipo para que coincida con la firma
+        return this.solicitudesService.findByFechaYModo(inicio, fin, tipo as '7' | 'n');
+	}
+
+	//ORDEN DE RUTAS, primero las que no necesitan id, luego las que si necesitan id
+	//GET /solicitudes/:id
+	//PATCH /solicitudes/:id
+	//DELETE /solicitudes/:id
+
 	@Get(':id')
 	findOne(@Param('id') id: string) {
 		return this.solicitudesService.findOne(+id);

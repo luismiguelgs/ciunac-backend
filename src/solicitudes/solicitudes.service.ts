@@ -3,7 +3,7 @@ import { CreateSolicitudDto } from './dto/create-solicitud.dto';
 import { UpdateSolicitudDto } from './dto/update-solicitud.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Solicitud } from './entities/solicitud.entity';
-import { Repository } from 'typeorm';
+import { Repository, Between, Not } from 'typeorm';
 
 @Injectable()
 export class SolicitudesService {
@@ -92,6 +92,31 @@ export class SolicitudesService {
 			relations: ['estudiante', 'estado', 'tiposSolicitud', 'idioma', 'nivel'],
 			order: { id: 'DESC' },
 		});
+	}
+
+	// ✨ FUNCIÓN INTELIGENTE (7 o Resto)
+	async findByFechaYModo(fechaInicio: string, fechaFin: string, modo: '7' | 'n'): Promise<Solicitud[]> {
+		// 1. Procesamiento de fechas (rápido y limpio)
+        const start = new Date(fechaInicio);
+        const end = new Date(fechaFin);
+
+        // Ajustamos horas para cubrir el día completo
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 999);
+
+        // 2. Definición del filtro en una sola línea
+        // Si es '7', buscamos el valor 7. Si no, buscamos todo lo que NO sea 7.
+        const filtroTipo = (modo === '7') ? 7 : Not(7);
+
+        // 3. Consulta usando la API estándar de TypeORM
+        return await this.solicitudRepository.find({
+            where: {
+                creadoEn: Between(start, end),
+                tipoSolicitudId: filtroTipo // TypeORM maneja esto automáticamente
+            },
+            relations: ['estudiante', 'tiposSolicitud', 'idioma', 'nivel', 'estado'],
+            order: { creadoEn: 'DESC' }
+        });
 	}
 
 	async remove(id: number): Promise<Solicitud | null> {

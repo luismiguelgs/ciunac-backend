@@ -41,8 +41,14 @@ export class CreateConstanciaDto {
     @IsString()
     idioma: string;
 
+    @IsNumber()
+    idiomaId: number;
+
     @IsString()
     nivel: string;
+
+    @IsNumber()
+    nivelId: number;
 
     @IsString()
     ciclo: string;
@@ -64,6 +70,7 @@ export class CreateConstanciaDto {
     modalidad: Modalidad;
 
     @IsArray()
+    @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => DetalleConstanciaDto)
     detalle: DetalleConstanciaDto[];

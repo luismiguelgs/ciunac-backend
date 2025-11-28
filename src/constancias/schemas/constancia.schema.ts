@@ -54,7 +54,13 @@ export class Constancia {
   idioma: string;
 
   @Prop({ required: true })
+  idiomaId: number;
+
+  @Prop({ required: true })
   nivel: string;
+
+  @Prop({ required: true })
+  nivelId: number;
 
   @Prop({ required: true })
   ciclo: string;

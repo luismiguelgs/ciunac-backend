@@ -17,6 +17,12 @@ export class SolicitudBeca {
     @Prop({ required: true })
     apellidos: string;
 
+    @Prop({required: true})
+    telefono:string;
+
+    @Prop({ required: true })
+    tipo_documento: string;
+
     @Prop({ required: true })
     numero_documento: string;
 
@@ -24,13 +30,22 @@ export class SolicitudBeca {
     facultad: string;
 
     @Prop({ required: true })
+    facultadId: string;
+
+    @Prop({ required: true })
     escuela: string;
+
+    @Prop({ required: true })
+    escuelaId: string;
 
     @Prop({ required: true })
     codigo: string;
 
     @Prop({ required: true })
     email: string;
+
+    @Prop({ required: false })
+    direccion: string;
 
     @Prop({ required: true })
     periodo: string;
