@@ -25,7 +25,6 @@ import { ExamenesubicacionModule } from './examenesubicacion/examenesubicacion.m
 import { CalificacionesubicacionModule } from './calificacionesubicacion/calificacionesubicacion.module';
 import { DetallesubicacionModule } from './detallesubicacion/detallesubicacion.module';
 import { CronogramaubicacionModule } from './cronogramaubicacion/cronogramaubicacion.module';
-import { LogsModule } from './logs/logs.module';
 import { TextosModule } from './textos/textos.module';
 import { ActanotasModule } from './actanotas/actanotas.module';
 import { ActasexamenubicacionModule } from './actasexamenubicacion/actasexamenubicacion.module';
