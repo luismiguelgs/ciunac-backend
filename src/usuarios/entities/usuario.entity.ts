@@ -8,6 +8,7 @@ export enum RolUsuario {
   ESTUDIANTE = 'ESTUDIANTE',
   DOCENTE = 'DOCENTE',
   ADMINISTRATIVO = 'ADMINISTRATIVO',
+  SUPERADMIN = 'SUPERADMIN'
 }
 
 @Entity('usuarios')
