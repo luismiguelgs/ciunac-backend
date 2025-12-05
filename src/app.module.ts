@@ -95,7 +95,6 @@ import { Q10Module } from './q10/q10.module';
 		CalificacionesubicacionModule,
 		DetallesubicacionModule,
 		CronogramaubicacionModule,
-		LogsModule,
 		TextosModule,
 		ActanotasModule,
 		ActasexamenubicacionModule,
