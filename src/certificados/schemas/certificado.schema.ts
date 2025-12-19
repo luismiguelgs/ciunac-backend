@@ -30,25 +30,9 @@ export class NotaCertificado {
 @Schema({
     collection: 'certificados',
     timestamps: { createdAt: 'creado_en', updatedAt: 'modificado_en' },
-    toJSON: {
-    virtuals: true,
-    transform: (doc:any, ret:any) => {
-      // .toString() es mágico: 
-      // Si es un String (importado), lo deja igual.
-      // Si es un ObjectId (nuevo), lo convierte a texto.
-      if (ret._id) {
-        const idAsString = ret._id.toString();
-        ret._id = idAsString;
-        ret.id = idAsString;
-      }
-      delete ret.__v;
-      return ret;
-    },
-  },
 })
 export class Certificado {
 
-   @Prop({ type: MongooseSchema.Types.Mixed })
   _id: any;
 
 

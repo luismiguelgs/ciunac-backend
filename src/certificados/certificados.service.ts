@@ -12,37 +12,71 @@ export class CertificadosService {
 		private certificadoModel: Model<CertificadoDocument>
 	) {}
 
+	// Función auxiliar para normalizar el ID
+	private mapId(doc: any) {
+		if (!doc) return null;
+		
+		// Si el documento es un array (para findAll)
+		if (Array.isArray(doc)) {
+		return doc.map(item => this.mapId(item));
+		}
+
+		// Convertimos _id a string (funciona con el String de Firebase y el ObjectId de Mongo)
+		const idString = doc._id ? doc._id.toString() : null;
+		
+		return {
+		...doc,
+		_id: idString,
+		id: idString,
+		};
+	}
+
 	async create(createCertificadoDto: CreateCertificadoDto) : Promise<Certificado> {
-		const createdCertificado = new this.certificadoModel(createCertificadoDto);
-		return createdCertificado.save();
+		const created = new this.certificadoModel(createCertificadoDto);
+		const doc = await created.save();
+		return this.mapId(doc.toObject());
 	}
 
 	async findAll() : Promise<Certificado[]> {
-		return this.certificadoModel.find().exec();
+		const certificados = await this.certificadoModel.find().lean().exec();
+    	return certificados.map(cert => this.mapId(cert));
 	}
 
 	async findBySolicitudId(solicitudId: number) : Promise<Certificado | null> {
-		return this.certificadoModel.findOne({ solicitudId }).exec();
+	  const certificado = await this.certificadoModel
+		.findOne({ solicitudId })
+		.lean()
+		.exec();
+
+  // 2. Usamos la función de mapeo para asegurar que _id e id existan como string
+  return this.mapId(certificado);
 	}
 
 	async findByImpreso(impreso: boolean) : Promise<Certificado[]> {
-		return this.certificadoModel
-			.find({ impreso }) // Filtrar por impreso true o false
-			.sort({ fechaEmision: -1 }) // Ordenar por fecha de emisión descendente
+		const certificados = await this.certificadoModel
+			.find({ impreso })
+			.sort({ fechaEmision: -1 })
+			.lean()
 			.exec();
+		return certificados.map(cert => this.mapId(cert));
 	}
 
 	async findOne(id: string) : Promise<Certificado | null> {
-		return this.certificadoModel.findOne({ _id: id }).exec();
+		const certificado = await this.certificadoModel.findOne({ _id: id }).lean().exec();
+    	return this.mapId(certificado);
 	}
 	async update(id: string, updateCertificadoDto: UpdateCertificadoDto) : Promise<Certificado | null> {
-		return this.certificadoModel.findByIdAndUpdate(
-			{_id:id}, 
-			updateCertificadoDto, 
-			{ new: true }
-		).exec();
+		const updated = await this.certificadoModel
+			.findOneAndUpdate({ _id: id }, updateCertificadoDto, { new: true })
+			.lean()
+			.exec();
+		return this.mapId(updated);
 	}
 	async remove(id: string) : Promise<Certificado | null> {
-		return this.certificadoModel.findByIdAndDelete({ _id: id }).exec();
+		const deleted = await this.certificadoModel
+			.findOneAndDelete({ _id: id })
+			.lean()
+			.exec();
+		return this.mapId(deleted);
 	}
 }
