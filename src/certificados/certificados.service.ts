@@ -33,12 +33,16 @@ export class CertificadosService {
 	}
 
 	async findOne(id: string) : Promise<Certificado | null> {
-		return this.certificadoModel.findById(id).exec();
+		return this.certificadoModel.findOne({ _id: id }).exec();
 	}
 	async update(id: string, updateCertificadoDto: UpdateCertificadoDto) : Promise<Certificado | null> {
-		return this.certificadoModel.findByIdAndUpdate(id, updateCertificadoDto, { new: true }).exec();
+		return this.certificadoModel.findByIdAndUpdate(
+			{_id:id}, 
+			updateCertificadoDto, 
+			{ new: true }
+		).exec();
 	}
 	async remove(id: string) : Promise<Certificado | null> {
-		return this.certificadoModel.findByIdAndDelete(id).exec();
+		return this.certificadoModel.findByIdAndDelete({ _id: id }).exec();
 	}
 }

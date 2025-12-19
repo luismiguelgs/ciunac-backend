@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type CertificadoDocument = Certificado & Document;
 
@@ -30,8 +30,28 @@ export class NotaCertificado {
 @Schema({
     collection: 'certificados',
     timestamps: { createdAt: 'creado_en', updatedAt: 'modificado_en' },
+    toJSON: {
+    virtuals: true,
+    transform: (doc:any, ret:any) => {
+      // .toString() es mágico: 
+      // Si es un String (importado), lo deja igual.
+      // Si es un ObjectId (nuevo), lo convierte a texto.
+      if (ret._id) {
+        const idAsString = ret._id.toString();
+        ret._id = idAsString;
+        ret.id = idAsString;
+      }
+      delete ret.__v;
+      return ret;
+    },
+  },
 })
 export class Certificado {
+
+   @Prop({ type: MongooseSchema.Types.Mixed })
+  _id: any;
+
+
   @Prop({ type: String, enum: TipoCertificado, required: true })
   tipo: TipoCertificado;
 
@@ -100,3 +120,6 @@ export class Certificado {
 }
 
 export const CertificadoSchema = SchemaFactory.createForClass(Certificado);
+
+
+
