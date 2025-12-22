@@ -3,7 +3,7 @@ import { CreateCertificadoDto } from './dto/create-certificado.dto';
 import { UpdateCertificadoDto } from './dto/update-certificado.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Certificado, CertificadoDocument } from './schemas/certificado.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class CertificadosService {
@@ -33,6 +33,10 @@ export class CertificadosService {
 
 	async create(createCertificadoDto: CreateCertificadoDto) : Promise<Certificado> {
 		const created = new this.certificadoModel(createCertificadoDto);
+		// 2. Si es un documento nuevo y no trae ID, generamos un ObjectId de Mongo
+		if (!created._id) {
+		created._id = new Types.ObjectId(); 
+		}
 		const doc = await created.save();
 		return this.mapId(doc.toObject());
 	}

@@ -33,8 +33,8 @@ export class NotaCertificado {
 })
 export class Certificado {
 
+  @Prop({ type: MongooseSchema.Types.Mixed }) 
   _id: any;
-
 
   @Prop({ type: String, enum: TipoCertificado, required: true })
   tipo: TipoCertificado;

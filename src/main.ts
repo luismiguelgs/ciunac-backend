@@ -11,7 +11,8 @@ async function bootstrap() {
 			'http://localhost:3000',      // Para cuando desarrollas en tu PC
         	'https://ciunac.site',        // Tu dominio principal (Frontend)
         	'https://api.ciunac.site',    // Tu subdominio (por si acaso)
-			'https://ciunac-admin-1-3.vercel.app'
+			'https://ciunac-admin-1-3.vercel.app',
+			'https://ciuanc-sol-1-3.vercel.app'
 		],
 		credentials: true,
 		methods: ['GET', 'POST', 'PATCH', 'DELETE'],
