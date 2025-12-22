@@ -66,14 +66,37 @@ export class CertificadosService {
 	}
 
 	async findOne(id: string) : Promise<Certificado | null> {
-		const certificado = await this.certificadoModel.findOne({ _id: id }).lean().exec();
+		const criterios:any = []
+		criterios.push({ _id: id})
+		
+		if(Types.ObjectId.isValid(id)){
+			criterios.push({ _id: new Types.ObjectId(id) })
+		}
+
+		const certificado = await this.certificadoModel
+			.findOne({ $or: criterios })
+			.lean()
+			.exec();
+
+		if (!certificado) return null;
+
     	return this.mapId(certificado);
 	}
 	async update(id: string, updateCertificadoDto: UpdateCertificadoDto) : Promise<Certificado | null> {
+		const query = {
+			$or: [
+				{ _id: id },
+				...(Types.ObjectId.isValid(id) ? [{ _id: new Types.ObjectId(id) }] : [])
+			]
+		};
+
 		const updated = await this.certificadoModel
-			.findOneAndUpdate({ _id: id }, updateCertificadoDto, { new: true })
+			.findOneAndUpdate(query, updateCertificadoDto, { new: true })
 			.lean()
 			.exec();
+
+		if (!updated) return null;
+			
 		return this.mapId(updated);
 	}
 	async remove(id: string) : Promise<Certificado | null> {
