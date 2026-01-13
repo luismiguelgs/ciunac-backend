@@ -26,7 +26,10 @@ export class DetallesubicacionService {
 
 	async findByExamen(examenId: number) : Promise<Detallesubicacion[]> {
 		return this.detallesubicacionRepository.find({
-			where: { examenId, activo: true },
+			where: { 
+				examen: {id: examenId}, 
+				activo: true 
+			},
 			relations: ['nivel', 'examen', 'estudiante', 'calificacion', 'idioma'],
 			order: {
 				estudiante: {

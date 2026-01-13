@@ -37,6 +37,8 @@ import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
 import { MailerModule } from './mailer/mailer.module';
 import { Q10Module } from './q10/q10.module';
+import { PerfilDocenteModule } from './perfil_docente/perfil_docente.module';
+import { TipoDocumentoPerfilModule } from './tipo_documento_perfil/tipo_documento_perfil.module';
 
 @Module({
 	imports: [
@@ -104,6 +106,8 @@ import { Q10Module } from './q10/q10.module';
 		UploadModule,
 		MailerModule,
 		Q10Module,
+		PerfilDocenteModule,
+		TipoDocumentoPerfilModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

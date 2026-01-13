@@ -10,11 +10,11 @@ export class CreateEstudianteDto {
     @IsString()
     apellidos: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsEnum(['M', 'F'], { message: 'El género debe ser M o F' })
     genero: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsDateString()
     fechaNacimiento: Date
 

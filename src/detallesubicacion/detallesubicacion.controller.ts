@@ -22,11 +22,6 @@ export class DetallesubicacionController {
 		return this.detallesubicacionService.findAll();
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.detallesubicacionService.findOne(+id);
-	}
-
 	@Get('examen/:id')
 	findByExamen(@Param('id') id: string) {
 		return this.detallesubicacionService.findByExamen(+id);
@@ -35,6 +30,11 @@ export class DetallesubicacionController {
 	@Get('estudiante/documento/:documentNumber')
 	findByDocumentNumber(@Param('documentNumber') documentNumber: string) {
 		return this.detallesubicacionService.findByDocumentNumber(documentNumber);
+	}
+
+	@Get(':id')
+	findOne(@Param('id') id: string) {
+		return this.detallesubicacionService.findOne(+id);
 	}
 
 	@Patch(':id')

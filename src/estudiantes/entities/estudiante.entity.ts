@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDa
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Facultad } from '../../facultades/entities/facultad.entity';
 import { Escuela } from '../../escuelas/entities/escuela.entity';
-import { Solicitud } from 'src/solicitudes/entities/solicitud.entity';
+import { Solicitud } from '../../solicitudes/entities/solicitud.entity';
 
 
 @Entity('estudiantes')
